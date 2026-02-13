@@ -1,0 +1,13 @@
+/* style.css */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('background.png') no-repeat center center/cover;
+}
+
+.my-button {
+    /* All those animations we discussed */
+}
