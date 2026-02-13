@@ -37,7 +37,7 @@ function handleTransition() {
             reveal.textContent = 'Unveiling of the EGH Campus Smart Hospital Road Map!';
             reveal.style.cssText = `
                 position: absolute;
-                top: 55%;
+                top: 42%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-family: 'SN Pro', sans-serif;
