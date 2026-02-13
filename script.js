@@ -1,4 +1,7 @@
 // script.js
+const _preload = new Image();
+_preload.src = 'wavy lines.png';
+
 const button = document.querySelector('#mainBtn');
 
 button.addEventListener('click', () => {
