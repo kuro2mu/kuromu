@@ -16,8 +16,10 @@ function handleTransition() {
     button.style.transition = 'transform 0.1s ease';
     button.style.transform = 'scale(0.9)';
 
+    wrapper.style.transition = 'opacity 0.125s ease';
+    wrapper.style.opacity = '0';
+
     setTimeout(() => {
-        // Remove button entirely
         wrapper.style.display = 'none';
 
         // Full-screen clip container
@@ -38,12 +40,12 @@ function handleTransition() {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            animation: marqueeTrack 3s linear forwards;
+            animation: marqueeTrack 5s linear forwards;
         `;
         clip.appendChild(sweep);
 
         // Diagonal container: 250vw wide, centered on viewport, rotated
-        const rowH = Math.max(btnRect.height * 1.2, 80);
+        const rowH = Math.max(btnRect.height * 1.2, 80) * 3;
         const gap = rowH * 0.5;
         const ANGLE = -15;
 
@@ -60,8 +62,8 @@ function handleTransition() {
         `;
         sweep.appendChild(diagonal);
 
-        // 4 rows, each with 4 images
-        for (let r = 0; r < 4; r++) {
+        // 1 row, 4 images
+        for (let r = 0; r < 1; r++) {
             const row = document.createElement('div');
             row.style.cssText = `
                 display: flex;
@@ -111,6 +113,6 @@ function handleTransition() {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => { reveal.style.opacity = '1'; });
             });
-        }, 3100);
+        }, 5100);
     }, 100);
 }
