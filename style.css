@@ -1,13 +1,104 @@
 /* style.css */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    min-height: 100vh;
+    position: relative;
+    background: url('background.jpeg') no-repeat center center/cover;
+}
+
+/* Logo centered in the top half (above the button) */
+.site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 62.5%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: url('background.png') no-repeat center center/cover;
+}
+
+.header-logo {
+    width: 90%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+/* Button pinned exactly to the center of the viewport */
+.button-wrapper {
+    position: absolute;
+    top: 62.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .my-button {
-    /* All those animations we discussed */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: min(360px, 90vw);
+
+    animation: scalePulse 2s ease-in-out infinite;
+}
+
+.my-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.button-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'SN Pro', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1rem, 5.5vw, 1.5rem);
+    letter-spacing: 0.1em;
+    color: #fff;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    width: 90%;
+    text-align: center;
+}
+
+/* Shine overlay */
+.my-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.55) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    /* Shine pulse every 2s — active for first 35% of the cycle */
+    animation: shine 2s ease-in-out infinite;
+}
+
+@keyframes scalePulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.07); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shine {
+    0%   { left: -75%; }
+    35%  { left: 125%; }
+    100% { left: 125%; }
 }
