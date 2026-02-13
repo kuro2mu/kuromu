@@ -103,8 +103,8 @@ body {
 }
 
 @keyframes marqueeTrack {
-    0%   { transform: translateX(33.333%); }
-    100% { transform: translateX(-100%); }
+    0%   { transform: translate(144vw, -101vw); }
+    100% { transform: translate(-144vw, 101vw); }
 }
 
 @keyframes marqueeLoop {
