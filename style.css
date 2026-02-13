@@ -16,7 +16,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 42%;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@ body {
 /* Button positioned above center */
 .button-wrapper {
     position: absolute;
-    top: 42%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -100,4 +100,24 @@ body {
     0%   { left: -75%; }
     35%  { left: 125%; }
     100% { left: 125%; }
+}
+
+@keyframes marqueeTrack {
+    0%   { transform: translateX(33.333%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes marqueeLoop {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-33.333%); }
+}
+
+@keyframes waveIn {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scaleY(0.5); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scaleY(1); }
+}
+
+@keyframes waveUndulate {
+    0%   { transform: translate(-50%, -50%) scaleY(1)    skewX(0deg); }
+    100% { transform: translate(-50%, -50%) scaleY(1.25) skewX(4deg); }
 }

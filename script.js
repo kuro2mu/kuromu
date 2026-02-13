@@ -1,109 +1,109 @@
 // script.js
 const button = document.querySelector('#mainBtn');
 
-const tileImages = [
-    'tileBlue_44.png',
-    'tileGreen_44.png',
-    'tileOrange_44.png',
-    'tilePink_45.png',
-    'tileRed_46.png',
-    'tileYellow_46.png'
-];
-
 button.addEventListener('click', () => {
     console.log("Button Triggered");
     handleTransition();
-    spawnConfetti();
 });
 
 function handleTransition() {
     const wrapper = document.querySelector('.button-wrapper');
+
+    // Capture rect BEFORE any layout changes
+    const btnRect = button.getBoundingClientRect();
 
     // Quick press-down feel
     button.style.transition = 'transform 0.1s ease';
     button.style.transform = 'scale(0.9)';
 
     setTimeout(() => {
-        // Fade out the button
-        wrapper.style.transition = 'opacity 0.4s ease';
-        wrapper.style.opacity = '0';
+        // Fade button to 30% — still visible but not clickable
+        wrapper.style.transition = 'opacity 0.3s ease';
+        wrapper.style.opacity = '0.3';
+        wrapper.style.pointerEvents = 'none';
 
-        setTimeout(() => {
-            wrapper.style.display = 'none';
-
-            // Create and show reveal text
-            const reveal = document.createElement('div');
-            reveal.id = 'revealText';
-            reveal.textContent = 'Unveiling of the EGH Campus Smart Hospital Road Map!';
-            reveal.style.cssText = `
-                position: absolute;
-                top: 42%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-family: 'SN Pro', sans-serif;
-                font-weight: 900;
-                font-size: clamp(1.2rem, 5vw, 2.5rem);
-                color: #000;
-                text-align: center;
-                width: 80%;
-                opacity: 0;
-                transition: opacity 0.6s ease;
-                line-height: 1.3;
-            `;
-            document.body.appendChild(reveal);
-
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    reveal.style.opacity = '1';
-                });
-            });
-        }, 400);
-    }, 100);
-}
-
-function spawnConfetti() {
-    const count = 60;
-    const origin = button.getBoundingClientRect();
-    const cx = origin.left + origin.width / 2;
-    const cy = origin.top + origin.height / 2;
-
-    for (let i = 0; i < count; i++) {
-        const el = document.createElement('img');
-        el.src = tileImages[Math.floor(Math.random() * tileImages.length)];
-        el.classList.add('confetti-tile');
-
-        // Random trajectory
-        const angle = Math.random() * 2 * Math.PI;
-        const speed = 150 + Math.random() * 400;
-        const dx = Math.cos(angle) * speed;
-        const dy = Math.sin(angle) * speed - 300; // bias upward
-        const rotation = (Math.random() - 0.5) * 720;
-        const size = 20 + Math.random() * 28;
-        const duration = 600 + Math.random() * 800;
-
-        el.style.cssText = `
+        // Marquee container — clipped to button bounds, 2x taller
+        const marqueeH = btnRect.height * 3;
+        const marquee = document.createElement('div');
+        marquee.style.cssText = `
             position: fixed;
-            left: ${cx}px;
-            top: ${cy}px;
-            width: ${size}px;
-            height: ${size}px;
+            top: ${btnRect.top + btnRect.height / 2 - marqueeH / 2}px;
+            left: ${btnRect.left}px;
+            width: ${btnRect.width}px;
+            height: ${marqueeH}px;
+            overflow: hidden;
+            z-index: 2;
             pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity ${duration}ms ease-in;
         `;
+        document.body.appendChild(marquee);
 
-        document.body.appendChild(el);
+        // Seamless track: two images side by side, sweep left-to-right
+        const track = document.createElement('div');
+        track.style.cssText = `
+            display: flex;
+            width: 300%;
+            height: 100%;
+            animation: marqueeTrack 3s linear forwards;
+        `;
+        marquee.appendChild(track);
 
-        // Trigger animation on next frame
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) rotate(${rotation}deg)`;
-                el.style.opacity = '0';
-            });
+        [0, 1, 2].forEach((i) => {
+            const img = document.createElement('img');
+            img.src = 'wavy lines.png';
+            img.style.cssText = `
+                width: 33.333%;
+                height: 100%;
+                object-fit: cover;
+                flex-shrink: 0;
+${i % 2 === 1 ? 'transform: scaleX(-1);' : ''}
+            `;
+            track.appendChild(img);
         });
 
-        setTimeout(() => el.remove(), duration + 100);
-    }
+        // After marquee finishes, fade button out, keep marquee looping faintly, reveal text
+        setTimeout(() => {
+            // Fade button wrapper out
+            wrapper.style.transition = 'opacity 0.4s ease';
+            wrapper.style.opacity = '0';
+
+            // Switch marquee to faint infinite loop behind the text
+            // Instantly hide before switching animation to avoid a flash frame
+            marquee.style.transition = 'none';
+            marquee.style.opacity = '0';
+            marquee.style.zIndex = '0';
+            track.style.animation = 'marqueeTrack 6s linear infinite';
+            requestAnimationFrame(() => {
+                marquee.style.transition = 'opacity 0.4s ease';
+                marquee.style.opacity = '0.15';
+            });
+
+            setTimeout(() => {
+                wrapper.style.display = 'none';
+
+                const reveal = document.createElement('div');
+                reveal.id = 'revealText';
+                reveal.textContent = 'Unveiling of the EGH Campus Smart Hospital Road Map!';
+                reveal.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-family: 'SN Pro', sans-serif;
+                    font-weight: 900;
+                    font-size: clamp(1.2rem, 5vw, 2.5rem);
+                    color: #000;
+                    text-align: center;
+                    width: 80%;
+                    opacity: 0;
+                    transition: opacity 0.6s ease;
+                    line-height: 1.3;
+                    z-index: 1;
+                `;
+                document.body.appendChild(reveal);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => { reveal.style.opacity = '1'; });
+                });
+            }, 400);
+        }, 3100);
+    }, 100);
 }
