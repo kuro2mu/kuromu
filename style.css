@@ -6,20 +6,20 @@
 body {
     margin: 0;
     min-height: 100vh;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
     background: url('background.jpeg') no-repeat center center/cover;
 }
 
-/* Logo centered in the area above the button */
 .site-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 3rem;
+    width: 100%;
 }
 
 .header-logo {
@@ -28,12 +28,26 @@ body {
     object-fit: contain;
 }
 
-/* Button positioned above center */
+.header-taglines {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.header-tagline {
+    margin: 0;
+    font-family: 'SN Pro', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+    color: #000;
+    text-align: center;
+    width: 80%;
+}
+
 .button-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
 }
 
 .my-button {
@@ -62,13 +76,13 @@ body {
     transform: translate(-50%, -50%);
     font-family: 'SN Pro', sans-serif;
     font-weight: 900;
-    font-size: clamp(0.65rem, 3vw, 1.3rem);
+    font-size: clamp(1rem, 4.5vw, 2rem);
     letter-spacing: 0.1em;
     color: #fff;
     pointer-events: none;
     user-select: none;
     white-space: nowrap;
-    width: 90%;
+    width: 75%;
     text-align: center;
 }
 
@@ -105,6 +119,30 @@ body {
 @keyframes marqueeTrack {
     0%   { transform: translate(144vw, -101vw); }
     100% { transform: translate(-144vw, 101vw); }
+}
+
+@keyframes sweepLTR {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-300vw); }
+}
+
+@keyframes sweepDrift {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(25vh); }
+}
+
+@keyframes sweepPulse {
+    0%   { transform: translateY(0)      scale(1); }
+    10%  { transform: translateY(-1.5vh) scale(0.97); }
+    20%  { transform: translateY(0)      scale(1.03); }
+    30%  { transform: translateY(1.5vh)  scale(0.97); }
+    40%  { transform: translateY(0)      scale(1.03); }
+    50%  { transform: translateY(-1.5vh) scale(0.97); }
+    60%  { transform: translateY(0)      scale(1.03); }
+    70%  { transform: translateY(1.5vh)  scale(0.97); }
+    80%  { transform: translateY(0)      scale(1.03); }
+    90%  { transform: translateY(-1.5vh) scale(0.97); }
+    100% { transform: translateY(0)      scale(1); }
 }
 
 @keyframes marqueeLoop {

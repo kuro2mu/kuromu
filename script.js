@@ -11,19 +11,21 @@ button.addEventListener('click', () => {
 
 function handleTransition() {
     const wrapper = document.querySelector('.button-wrapper');
-
-    // Capture rect BEFORE any layout changes
-    const btnRect = button.getBoundingClientRect();
+    const header  = document.querySelector('.site-header');
 
     // Quick press-down feel
     button.style.transition = 'transform 0.1s ease';
     button.style.transform = 'scale(0.9)';
 
+    // Fade out button and header together
     wrapper.style.transition = 'opacity 0.125s ease';
+    header.style.transition  = 'opacity 0.125s ease';
     wrapper.style.opacity = '0';
+    header.style.opacity  = '0';
 
     setTimeout(() => {
         wrapper.style.display = 'none';
+        header.style.display  = 'none';
 
         // Full-screen clip container
         const clip = document.createElement('div');
@@ -37,85 +39,73 @@ function handleTransition() {
         `;
         document.body.appendChild(clip);
 
-        // Sweep layer — this gets the translateX animation
-        const sweep = document.createElement('div');
-        sweep.style.cssText = `
+        // Pan wrapper — moves left to right at constant speed
+        const pan = document.createElement('div');
+        pan.style.cssText = `
             position: absolute;
             top: 0; left: 0;
+            width: 300vw; height: 100vh;
+            animation: sweepLTR 5s linear forwards;
+        `;
+        clip.appendChild(pan);
+
+        // Image — covers pan wrapper
+        const sweep = document.createElement('img');
+        sweep.src = 'wavy lines.png';
+        sweep.style.cssText = `
             width: 100%; height: 100%;
-            animation: marqueeTrack 5s linear forwards;
+            object-fit: cover;
+            display: block;
         `;
-        clip.appendChild(sweep);
+        pan.appendChild(sweep);
 
-        // Diagonal container: 250vw wide, centered on viewport, rotated
-        const rowH = Math.max(btnRect.height * 1.2, 80) * 3;
-        const gap = rowH * 0.5;
-        const ANGLE = -15;
-
-        const diagonal = document.createElement('div');
-        diagonal.style.cssText = `
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(${ANGLE}deg);
-            width: 250vw;
-            display: flex;
-            flex-direction: column;
-            gap: ${gap}px;
-        `;
-        sweep.appendChild(diagonal);
-
-        // 1 row, 4 images
-        for (let r = 0; r < 1; r++) {
-            const row = document.createElement('div');
-            row.style.cssText = `
-                display: flex;
-                height: ${rowH}px;
-                flex-shrink: 0;
-            `;
-            diagonal.appendChild(row);
-
-            [0, 1, 2, 3].forEach((i) => {
-                const img = document.createElement('img');
-                img.src = 'wavy lines.png';
-                img.style.cssText = `
-                    width: 25%;
-                    height: 100%;
-                    object-fit: cover;
-                    flex-shrink: 0;
-                    ${i % 2 === 1 ? 'transform: scaleX(-1);' : ''}
-                `;
-                row.appendChild(img);
-            });
-        }
-
-        // After sweep finishes: hide clip, reveal text
+        // After sweep finishes: fade out clip, then show reveal text
         setTimeout(() => {
-            clip.style.display = 'none';
+            clip.style.transition = 'opacity 0.4s ease';
+            clip.style.opacity = '0';
+            setTimeout(() => {
+                clip.remove();
 
-            const reveal = document.createElement('div');
-            reveal.id = 'revealText';
-            reveal.textContent = 'Unveiling of the EGH Campus Smart Hospital Road Map!';
-            reveal.style.cssText = `
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-family: 'SN Pro', sans-serif;
-                font-weight: 900;
-                font-size: clamp(1.2rem, 5vw, 2.5rem);
-                color: #000;
-                text-align: center;
-                width: 80%;
-                opacity: 0;
-                transition: opacity 0.6s ease;
-                line-height: 1.3;
-                z-index: 3;
-            `;
-            document.body.appendChild(reveal);
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => { reveal.style.opacity = '1'; });
-            });
-        }, 5100);
-    }, 100);
+                const reveal = document.createElement('div');
+                reveal.style.cssText = `
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100vw; height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.3rem;
+                    opacity: 0;
+                    transition: opacity 0.6s ease;
+                    z-index: 3;
+                `;
+
+                const lines = [
+                    'You have joined the official unveiling of the EGH Campus Smart Hospital Roadmap.',
+                    'Please turn your attention to the stage as the vision unfolds.'
+                ];
+
+                lines.forEach(text => {
+                    const p = document.createElement('p');
+                    p.textContent = text;
+                    p.style.cssText = `
+                        margin: 0;
+                        font-family: 'SN Pro', sans-serif;
+                        font-weight: 900;
+                        font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+                        color: #000;
+                        text-align: center;
+                        width: 80%;
+                    `;
+                    reveal.appendChild(p);
+                });
+
+                document.body.appendChild(reveal);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => { reveal.style.opacity = '1'; });
+                });
+            }, 400);
+        }, 5000);
+    }, 150);
 }
