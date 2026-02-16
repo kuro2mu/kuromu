@@ -44,18 +44,20 @@ function handleTransition() {
         pan.style.cssText = `
             position: absolute;
             top: 0; left: 0;
-            width: 300vw; height: 100vh;
+            width: 300vw; height: 100%;
             animation: sweepLTR 5s linear forwards;
         `;
         clip.appendChild(pan);
 
-        // Image — covers pan wrapper
+        // Image — fills pan, grows in scale as it pans
         const sweep = document.createElement('img');
         sweep.src = 'wavy lines.png';
         sweep.style.cssText = `
             width: 100%; height: 100%;
             object-fit: cover;
             display: block;
+            transform-origin: center center;
+            animation: sweepGrow 5s linear forwards, sweepFade 5s linear forwards;
         `;
         pan.appendChild(sweep);
 

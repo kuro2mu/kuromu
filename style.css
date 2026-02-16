@@ -94,68 +94,162 @@ body {
     left: -75%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.55) 50%,
-        rgba(255,255,255,0) 100%
-    );
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.55) 50%,
+            rgba(255, 255, 255, 0) 100%);
     /* Shine pulse every 2s — active for first 35% of the cycle */
     animation: shine 2s ease-in-out infinite;
 }
 
 @keyframes scalePulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.07); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes shine {
-    0%   { left: -75%; }
-    35%  { left: 125%; }
-    100% { left: 125%; }
+    0% {
+        left: -75%;
+    }
+
+    35% {
+        left: 125%;
+    }
+
+    100% {
+        left: 125%;
+    }
 }
 
 @keyframes marqueeTrack {
-    0%   { transform: translate(144vw, -101vw); }
-    100% { transform: translate(-144vw, 101vw); }
+    0% {
+        transform: translate(144vw, -101vw);
+    }
+
+    100% {
+        transform: translate(-144vw, 101vw);
+    }
 }
 
 @keyframes sweepLTR {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-300vw); }
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-150vw);
+    }
+}
+
+@keyframes sweepGrow {
+    0% {
+        transform: scaleY(1);
+    }
+
+    100% {
+        transform: scaleY(1.5);
+    }
+}
+
+@keyframes sweepFade {
+    0%   { opacity: 1; }
+    65%  { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @keyframes sweepDrift {
-    0%   { transform: translateY(0); }
-    100% { transform: translateY(25vh); }
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(25vh);
+    }
 }
 
 @keyframes sweepPulse {
-    0%   { transform: translateY(0)      scale(1); }
-    10%  { transform: translateY(-1.5vh) scale(0.97); }
-    20%  { transform: translateY(0)      scale(1.03); }
-    30%  { transform: translateY(1.5vh)  scale(0.97); }
-    40%  { transform: translateY(0)      scale(1.03); }
-    50%  { transform: translateY(-1.5vh) scale(0.97); }
-    60%  { transform: translateY(0)      scale(1.03); }
-    70%  { transform: translateY(1.5vh)  scale(0.97); }
-    80%  { transform: translateY(0)      scale(1.03); }
-    90%  { transform: translateY(-1.5vh) scale(0.97); }
-    100% { transform: translateY(0)      scale(1); }
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    10% {
+        transform: translateY(-1.5vh) scale(0.97);
+    }
+
+    20% {
+        transform: translateY(0) scale(1.03);
+    }
+
+    30% {
+        transform: translateY(1.5vh) scale(0.97);
+    }
+
+    40% {
+        transform: translateY(0) scale(1.03);
+    }
+
+    50% {
+        transform: translateY(-1.5vh) scale(0.97);
+    }
+
+    60% {
+        transform: translateY(0) scale(1.03);
+    }
+
+    70% {
+        transform: translateY(1.5vh) scale(0.97);
+    }
+
+    80% {
+        transform: translateY(0) scale(1.03);
+    }
+
+    90% {
+        transform: translateY(-1.5vh) scale(0.97);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes marqueeLoop {
-    0%   { transform: translateX(0%); }
-    100% { transform: translateX(-33.333%); }
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-33.333%);
+    }
 }
 
 @keyframes waveIn {
-    0%   { opacity: 0; transform: translate(-50%, -50%) scaleY(0.5); }
-    100% { opacity: 1; transform: translate(-50%, -50%) scaleY(1); }
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleY(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleY(1);
+    }
 }
 
 @keyframes waveUndulate {
-    0%   { transform: translate(-50%, -50%) scaleY(1)    skewX(0deg); }
-    100% { transform: translate(-50%, -50%) scaleY(1.25) skewX(4deg); }
+    0% {
+        transform: translate(-50%, -50%) scaleY(1) skewX(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scaleY(1.25) skewX(4deg);
+    }
 }
