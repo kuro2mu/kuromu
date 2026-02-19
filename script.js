@@ -1,6 +1,8 @@
 // script.js
 const _preload = new Image();
 _preload.src = 'wavy lines.png';
+const _preload2 = new Image();
+_preload2.src = 'Health Fest Logo.png';
 
 const button = document.querySelector('#mainBtn');
 
@@ -45,7 +47,7 @@ function handleTransition() {
             position: absolute;
             top: 0; left: 0;
             width: 300vw; height: 100%;
-            animation: sweepLTR 5s linear forwards;
+            animation: sweepLTR 6s linear forwards;
         `;
         clip.appendChild(pan);
 
@@ -57,7 +59,7 @@ function handleTransition() {
             object-fit: cover;
             display: block;
             transform-origin: center center;
-            animation: sweepGrow 5s linear forwards, sweepFade 5s linear forwards;
+animation: sweepGrow 6s linear forwards, sweepFade 6s linear forwards;
         `;
         pan.appendChild(sweep);
 
@@ -77,11 +79,20 @@ function handleTransition() {
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    gap: 0.3rem;
+                    gap: 3rem;
                     opacity: 0;
                     transition: opacity 0.6s ease;
                     z-index: 3;
                 `;
+
+                const logo = document.createElement('img');
+                logo.src = 'Health Fest Logo.png';
+                logo.style.cssText = `
+                    width: clamp(280px, 80vw, 800px);
+                    height: auto;
+                    object-fit: contain;
+                `;
+                reveal.appendChild(logo);
 
                 const lines = [
                     'You have joined the official unveiling of the EGH Campus Smart Hospital Roadmap.',
@@ -108,6 +119,6 @@ function handleTransition() {
                     requestAnimationFrame(() => { reveal.style.opacity = '1'; });
                 });
             }, 400);
-        }, 5000);
+        }, 6000);
     }, 150);
 }

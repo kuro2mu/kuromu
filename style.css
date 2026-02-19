@@ -141,13 +141,8 @@ body {
 }
 
 @keyframes sweepLTR {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-150vw);
-    }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-200vw); }
 }
 
 @keyframes sweepGrow {
@@ -162,7 +157,7 @@ body {
 
 @keyframes sweepFade {
     0%   { opacity: 1; }
-    65%  { opacity: 1; }
+    80%  { opacity: 1; }
     100% { opacity: 0; }
 }
 
