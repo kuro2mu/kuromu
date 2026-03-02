@@ -119,6 +119,6 @@ animation: sweepGrow 6s linear forwards, sweepFade 6s linear forwards;
                     requestAnimationFrame(() => { reveal.style.opacity = '1'; });
                 });
             }, 400);
-        }, 4000);
+        }, 2000);
     }, 150);
 }
