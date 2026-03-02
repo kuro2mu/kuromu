@@ -13,7 +13,7 @@ button.addEventListener('click', () => {
 
 function handleTransition() {
     const wrapper = document.querySelector('.button-wrapper');
-    const header  = document.querySelector('.site-header');
+    const header = document.querySelector('.site-header');
 
     // Quick press-down feel
     button.style.transition = 'transform 0.1s ease';
@@ -21,13 +21,13 @@ function handleTransition() {
 
     // Fade out button and header together
     wrapper.style.transition = 'opacity 0.125s ease';
-    header.style.transition  = 'opacity 0.125s ease';
+    header.style.transition = 'opacity 0.125s ease';
     wrapper.style.opacity = '0';
-    header.style.opacity  = '0';
+    header.style.opacity = '0';
 
     setTimeout(() => {
         wrapper.style.display = 'none';
-        header.style.display  = 'none';
+        header.style.display = 'none';
 
         // Full-screen clip container
         const clip = document.createElement('div');
@@ -104,7 +104,7 @@ animation: sweepGrow 6s linear forwards, sweepFade 6s linear forwards;
                     p.textContent = text;
                     p.style.cssText = `
                         margin: 0;
-                        font-family: 'SN Pro', sans-serif;
+                        font-family: 'AvantGarde', sans-serif;
                         font-weight: 900;
                         font-size: clamp(1.3rem, 3.5vw, 2.4rem);
                         color: #000;
@@ -119,6 +119,6 @@ animation: sweepGrow 6s linear forwards, sweepFade 6s linear forwards;
                     requestAnimationFrame(() => { reveal.style.opacity = '1'; });
                 });
             }, 400);
-        }, 6000);
+        }, 4000);
     }, 150);
 }
