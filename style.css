@@ -22,6 +22,10 @@ body {
     background: url('background.jpeg') no-repeat center center/cover;
 }
 
+.no-break {
+    white-space: nowrap;
+}
+
 .site-header {
     display: flex;
     flex-direction: column;
@@ -40,7 +44,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    gap: 1.5rem;
 }
 
 .header-tagline {
@@ -48,6 +52,7 @@ body {
     font-family: 'AvantGarde', sans-serif;
     font-weight: 900;
     font-size: clamp(1.3rem, 3.5vw, 2.4rem);
+    line-height: 1.2;
     color: #000;
     text-align: center;
     width: 80%;
@@ -67,7 +72,6 @@ body {
     overflow: hidden;
     display: inline-block;
     width: clamp(280px, 65vw, 560px);
-
     animation: scalePulse 2s ease-in-out infinite;
 }
 
@@ -94,7 +98,6 @@ body {
     text-align: center;
 }
 
-/* Shine overlay */
 .my-button::after {
     content: '';
     position: absolute;
@@ -106,7 +109,6 @@ body {
             rgba(255, 255, 255, 0) 0%,
             rgba(255, 255, 255, 0.55) 50%,
             rgba(255, 255, 255, 0) 100%);
-    /* Shine pulse every 2s — active for first 35% of the cycle */
     animation: shine 2s ease-in-out infinite;
 }
 
@@ -138,23 +140,14 @@ body {
     }
 }
 
-@keyframes marqueeTrack {
-    0% {
-        transform: translate(144vw, -101vw);
-    }
-
-    100% {
-        transform: translate(-144vw, 101vw);
-    }
-}
-
+/* Updated to move exactly the width of the container */
 @keyframes sweepLTR {
     0% {
         transform: translateX(0);
     }
 
     100% {
-        transform: translateX(-200vw);
+        transform: translateX(-100%);
     }
 }
 
@@ -170,102 +163,18 @@ body {
 
 @keyframes sweepFade {
     0% {
+        opacity: 0;
+    }
+
+    15% {
         opacity: 1;
     }
 
-    80% {
+    85% {
         opacity: 1;
     }
 
     100% {
         opacity: 0;
-    }
-}
-
-@keyframes sweepDrift {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(25vh);
-    }
-}
-
-@keyframes sweepPulse {
-    0% {
-        transform: translateY(0) scale(1);
-    }
-
-    10% {
-        transform: translateY(-1.5vh) scale(0.97);
-    }
-
-    20% {
-        transform: translateY(0) scale(1.03);
-    }
-
-    30% {
-        transform: translateY(1.5vh) scale(0.97);
-    }
-
-    40% {
-        transform: translateY(0) scale(1.03);
-    }
-
-    50% {
-        transform: translateY(-1.5vh) scale(0.97);
-    }
-
-    60% {
-        transform: translateY(0) scale(1.03);
-    }
-
-    70% {
-        transform: translateY(1.5vh) scale(0.97);
-    }
-
-    80% {
-        transform: translateY(0) scale(1.03);
-    }
-
-    90% {
-        transform: translateY(-1.5vh) scale(0.97);
-    }
-
-    100% {
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes marqueeLoop {
-    0% {
-        transform: translateX(0%);
-    }
-
-    100% {
-        transform: translateX(-33.333%);
-    }
-}
-
-@keyframes waveIn {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scaleY(0.5);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scaleY(1);
-    }
-}
-
-@keyframes waveUndulate {
-    0% {
-        transform: translate(-50%, -50%) scaleY(1) skewX(0deg);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scaleY(1.25) skewX(4deg);
     }
 }
